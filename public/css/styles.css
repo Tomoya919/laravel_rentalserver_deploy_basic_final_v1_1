@@ -1,0 +1,104 @@
+.header_nav {
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+}
+.header_nav li {
+  margin-right: 30px;
+}
+.header_nav_1 {
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+}
+.header_nav_1 li {
+  margin-right: 30px;
+}
+.header_logo a {
+  font-size: 35px;
+  text-decoration: none;
+}
+.header_link {
+  display: flex;
+  margin-left: 1050px;
+  margin-top: 20px;
+}
+/* エラーメッセージ用のスタイル */
+.error {
+  color: red;
+}
+/* 成功メッセージ用のスタイル */
+.success {
+  color: green;
+}
+/* 削除ボタン用のスタイル */
+.delete {
+  display: inline;
+}
+/* 投稿のスタイル */
+.post {
+  margin-bottom: 30px;
+}
+
+
+/* 投稿のスタイル */
+.posts {
+  padding: 0;
+}
+.post {
+  margin-bottom: 30px;
+  list-style: none;
+  border-top: solid 1px black;
+  border-bottom: solid 1px black;
+}
+.post_body_main {
+  display: flex;
+}
+.post_body_heading {
+  background-color: #dddddd;
+  font-weight: bold;
+}
+.post_body_main_img {
+  width: 100px;
+}
+.post_body_main_img img{
+  width: 100%;
+}
+.post_comments {
+  background-color: #eeeeee;
+  font-size: 13px;
+}
+.post_comments_header {
+  font-weight: bold;
+}
+.post_comments_body {
+  padding:0;
+  list-style: none;
+}
+
+/*いいねボタン*/
+.like_button {
+  cursor: pointer;
+}
+.like {
+  display: inline;
+}
+.like_post {
+    background-color: #dccaca;
+    border-top: solid 1px #e67c2e;
+    border-bottom: solid 1px #e67c2e;
+}
+.like_post .post_body_heading {
+    background-color: #dccaca;
+}
+.like_post .post_comments {
+    background-color: #e4d6c7;
+}
+.like_post .like_button {
+    color: yellow;
+}
+
+/* フォローボタン */
+.follow {
+  cursor: pointer;
+}

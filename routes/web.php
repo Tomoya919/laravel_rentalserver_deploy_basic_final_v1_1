@@ -11,8 +11,15 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('posts.index');
 });
 
-a;
+Route::resource('users', 'UserController')->only([
+  'create', 'store','edit', 'update', 'show',
+]);
+
+Route::resource('posts', 'PostController');
+
