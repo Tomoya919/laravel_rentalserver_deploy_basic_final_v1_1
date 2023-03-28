@@ -13,10 +13,11 @@ class PostController extends Controller
     // 投稿一覧
     public function index(){
         $user = \Auth::user();
-        $posts = Post::where('user_id','<>',$user->id)->latest()->get();
+        $posts = $user->posts()->latest()->get();
         return view('posts.index', [
           'title' => '投稿一覧',
           'user' => $user,
+          'posts' => $posts,
         ]);
     }
  

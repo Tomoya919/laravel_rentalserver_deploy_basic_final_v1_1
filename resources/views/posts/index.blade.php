@@ -4,9 +4,8 @@
 
 @section('content')
   <h1>{{ $title }}</h1>
-  <a href="{{route('posts.create')}}">新規投稿</a>
   <ul>
-      @forelse($user->posts as $post)
+      @forelse($posts as $post)
           <li>
             {{ $post->user->name }}:
             {!! nl2br($post->comment) !!}<br>
