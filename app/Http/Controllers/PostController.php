@@ -18,7 +18,7 @@ class PostController extends Controller
           'title' => '投稿一覧',
           'user' => $user,
           'posts' => $posts,
-          a
+          'recommend_users' => User::recommend($user->id)->get()
         ]);
     }
  

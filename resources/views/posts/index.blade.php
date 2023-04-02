@@ -4,6 +4,14 @@
 
 @section('content')
   <h1>{{ $title }}</h1>
+  <h2>おすすめユーザー</h2>
+  <ul class="recommend_users">
+    @forelse($recommend_users as $recommend_user)
+      <li><a href="{{ route('users.show', $recommend_user) }}">{{ $recommend_user->name }}</a></li>
+    @empty
+      <li>他のユーザーが存在しません。</li>
+    @endforelse
+  </ul>
   <ul>
       @forelse($posts as $post)
           <li>
