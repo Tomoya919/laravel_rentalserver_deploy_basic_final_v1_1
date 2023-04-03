@@ -16,10 +16,13 @@ class UserController extends Controller
     
     public function show($id){
         $user = User::find($id);
+        $posts = $user->posts()->latest()->get();
         
         return view('users.show',[
             'title' => 'プロフィール',
             'user' => $user,
+            'posts' => $posts,
+            'recommended_user' => User::recommend($user->id)->get()->first(),
         ]);
     }
     

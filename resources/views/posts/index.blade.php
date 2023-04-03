@@ -3,7 +3,6 @@
 @section('title', $title)
 
 @section('content')
-  <h1>{{ $title }}</h1>
   <h2>おすすめユーザー</h2>
   <ul class="recommend_users">
     @forelse($recommend_users as $recommend_user)
@@ -12,6 +11,7 @@
       <li>他のユーザーが存在しません。</li>
     @endforelse
   </ul>
+  <h1>{{ $title }}</h1>
   <ul>
       @forelse($posts as $post)
           <li>
@@ -21,11 +21,13 @@
             @if($user->isEditable($post))
               [<a href="{{ route('posts.edit', $post) }}">編集</a>]
             @endif
+            @if($user->isEditable($post))
             <form action="{{ url('posts/'.$post->id) }}" method="post">
               @csrf 
               @method('delete')
               <button type="submit">削除</button>
             </form>
+            @endif
           </li>
       @empty
           <p>投稿がありません。</p>

@@ -23,3 +23,8 @@ Route::resource('users', 'UserController')->only([
 
 Route::resource('posts', 'PostController');
 
+Route::resource('follows', 'FollowController')->only([
+  'index', 'store', 'destroy'
+]);
+ 
+Route::get('/follower', 'FollowController@followerIndex');
