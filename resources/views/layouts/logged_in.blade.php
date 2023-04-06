@@ -10,6 +10,9 @@
         </li>
         <div class="header_link">
           <li>
+            <a href="{{route('follows.index')}}">フォローユーザー一覧</a>
+          </li>
+          <li>
             <a href="{{route('posts.create')}}">新規投稿</a>
           </li>
           <li>

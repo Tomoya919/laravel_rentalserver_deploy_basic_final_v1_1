@@ -16,6 +16,7 @@ class PostController extends Controller
         $posts = $user->posts()->latest()->get();
         $follow_user_ids = $user->follow_users->pluck('id');
         $user_posts = $user->posts()->orWhereIn('user_id', $follow_user_ids )->latest()->get();
+        // dd($follow_user_ids);
         return view('posts.index', [
           'title' => '投稿一覧',
           'user' => $user,
@@ -40,14 +41,6 @@ class PostController extends Controller
       ]);
       session()->flash('success', '投稿を追加しました');
       return redirect()->route('posts.index');
-    }
- 
-    // 投稿詳細
-    public function show($id)
-    {
-        return view('posts.show', [
-          'title' => '投稿詳細',
-        ]);
     }
  
     // 投稿編集フォーム

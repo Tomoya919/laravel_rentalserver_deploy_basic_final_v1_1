@@ -27,4 +27,14 @@ class FollowController extends Controller
         \Session::flash('success', 'フォロー解除しました');
         return redirect()->route('posts.index');
     }
+    
+    // フォロー一覧
+    public function index()
+    {
+        $follow_users = \Auth::user()->follow_users;
+        return view('follows.index', [
+          'title' => 'フォロー一覧',
+          'follow_users' => $follow_users,
+        ]);
+    }
 }

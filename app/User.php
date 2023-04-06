@@ -36,8 +36,19 @@ class User extends Authenticatable
         return $this->admin === 1;
     }
     
+    // public function scopeRecommend($query, $self_id){
+    //     return $query->where('id', '!=', $self_id)->latest()->limit(3);
+    // }
+    
     public function scopeRecommend($query, $self_id){
-        return $query->where('id', '!=', $self_id)->latest()->limit(3);
+        // 現在のユーザーがフォローしているユーザーのID
+        $followingIds = Follow::where('user_id', $self_id)->pluck('follow_id')->toArray();
+        // 現在のユーザーがフォローしていないユーザーをランダムに3件取得する
+        return $query->whereNotIn('id', $followingIds)
+            ->where('id', '!=', $self_id)
+            ->latest()
+            ->inRandomOrder()
+            ->limit(3);
     }
     
     public function follows(){
