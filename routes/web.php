@@ -28,3 +28,5 @@ Route::resource('follows', 'FollowController')->only([
 ]);
  
 Route::get('/follower', 'FollowController@followerIndex');
+
+Route::get('/posts/search', 'PostController@search')->name('posts.search');

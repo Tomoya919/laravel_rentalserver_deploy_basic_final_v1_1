@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Http\Requests\PostRequest;
-use App\Http\Requests\PostImageRequest;
 use App\User;
  
 class PostController extends Controller
@@ -16,12 +15,11 @@ class PostController extends Controller
         $posts = $user->posts()->latest()->get();
         $follow_user_ids = $user->follow_users->pluck('id');
         $user_posts = $user->posts()->orWhereIn('user_id', $follow_user_ids )->latest()->get();
-        // dd($follow_user_ids);
         return view('posts.index', [
           'title' => '投稿一覧',
           'user' => $user,
           'posts' => $user_posts,
-          'recommend_users' => User::recommend($user->id)->get()
+          'recommend_users' => User::recommend($user->id)->get(),
         ]);
     }
  
@@ -76,5 +74,29 @@ class PostController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+    
+    public function show($id)
+    {
+        $post = Post::find($id);
+        return view('posts.show', [
+          'title' => '投稿詳細',
+          'post'  => $post,
+        ]);
+    }
+    
+    public function search(Request $request)
+    {
+        $keyword = $request->input('search_keyword');
+    
+        $posts = Post::where('user_id', '<>', Auth::id())
+                     ->where('comment', 'LIKE', '%'.$keyword.'%')
+                     ->latest()
+                     ->get();
+    
+        return view('posts.search', [
+            'posts' => $posts,
+            'search_keyword' => $keyword,
+        ]);
     }
 }
