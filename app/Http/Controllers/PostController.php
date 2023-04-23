@@ -87,16 +87,25 @@ class PostController extends Controller
     
     public function search(Request $request)
     {
-        $keyword = $request->input('search_keyword');
+        $keyword = $request->input('keyword');
     
-        $posts = Post::where('user_id', '<>', Auth::id())
-                     ->where('comment', 'LIKE', '%'.$keyword.'%')
-                     ->latest()
-                     ->get();
+        if ($keyword) {
+            $posts = Post::where('comment', 'LIKE', "%$keyword%")
+                ->where('user_id', '!=', auth()->user()->id) // 自分以外のユーザーの投稿のみを取得
+                ->with('user')
+                ->orderBy('created_at', 'desc')
+                ->paginate(10);
+        } else {
+            $userIds = auth()->user()->follow_users()->pluck('users.id')->toArray();
+            $userIds[] = auth()->user()->id;
     
-        return view('posts.search', [
-            'posts' => $posts,
-            'search_keyword' => $keyword,
-        ]);
+            $posts = Post::whereIn('user_id', $userIds)
+                ->with('user')
+                ->orderBy('created_at', 'desc')
+                ->paginate(10);
+        }
+    
+        return view('posts.search', compact('keyword', 'posts'));
     }
+
 }

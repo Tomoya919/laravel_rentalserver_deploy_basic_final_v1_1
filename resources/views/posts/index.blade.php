@@ -4,7 +4,8 @@
 
 @section('content')
   <form action="{{ route('posts.search') }}" method="GET">
-      <input type="text" name="search_keyword">
+    @csrf
+      <input type="text" name="keyword">
       <button type="submit">検索</button>
   </form>
   <h2>おすすめユーザー</h2>

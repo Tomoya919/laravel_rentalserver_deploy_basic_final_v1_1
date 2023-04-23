@@ -1,16 +1,20 @@
-@extends('layouts.logged_in')
+@if(count($posts) > 0)
+    @if($keyword)
+        <h2>検索結果：{{ $keyword }}</h2>
+    @else
+        <h2>投稿一覧：</h2>
+    @endif
 
-@section('content')
-    <div>
-        @if($posts->count() > 0)
-            <h2>検索結果: {{ $search_keyword }}</h2>
-            <ul>
-                @foreach($posts as $post)
-                    <li>{{ $post->comment }}</li>
-                @endforeach
-            </ul>
-        @else
-            <p>該当する投稿がありません。</p>
-        @endif
-    </div>
-@endsection
+    <ul>
+        @foreach($posts as $post)
+            <li>
+                {{ $post->user->name }}<br>
+                {{ $post->comment }}<br>
+                {{ $post->created_at }}
+            </li>
+        @endforeach
+    </ul>
+    {{ $posts->links() }}
+@else
+    <p>検索結果がありません。</p>
+@endif
