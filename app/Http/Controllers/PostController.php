@@ -10,7 +10,7 @@ use App\User;
 class PostController extends Controller
 {
     // 投稿一覧
-    public function index(){
+    public function index(Request $request){
         $user = \Auth::user();
         $posts = $user->posts()->latest()->get();
         $follow_user_ids = $user->follow_users->pluck('id');
@@ -87,6 +87,7 @@ class PostController extends Controller
     
     public function search(Request $request)
     {
+        $user = \Auth::user();
         $keyword = $request->input('keyword');
     
         if ($keyword) {
@@ -105,7 +106,11 @@ class PostController extends Controller
                 ->paginate(10);
         }
     
-        return view('posts.search', compact('keyword', 'posts'));
+        return view('posts.search', compact('keyword', 'posts'),[
+                'user' => $user,
+                'title' => '投稿一覧',
+                'recommend_users' => User::recommend($user->id)->get(),
+            ]);
     }
 
 }

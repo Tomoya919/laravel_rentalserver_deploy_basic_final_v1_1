@@ -5,8 +5,8 @@
 @section('content')
   <form action="{{ route('posts.search') }}" method="GET">
     @csrf
-      <input type="text" name="keyword">
-      <button type="submit">検索</button>
+    <input type="text" name="keyword" placeholder="キーワードを入力してください">
+    <button type="submit">検索</button>
   </form>
   <h2>おすすめユーザー</h2>
   <ul class="recommend_users">
