@@ -1,6 +1,11 @@
 @extends('layouts.logged_in')
 
 @section('content')
+    <form action="{{ route('posts.search') }}" method="GET">
+      @csrf
+      <input type="text" name="keyword" value="{{ old("keyword", $query) }}" placeholder="キーワードを入力してください">
+      <button type="submit">検索</button>
+    </form>
     @if(count($posts) > 0)
         <h2>おすすめユーザー</h2>
         <ul class="recommend_users">

@@ -12,6 +12,7 @@ class PostController extends Controller
     // 投稿一覧
     public function index(Request $request){
         $user = \Auth::user();
+        $query = $request->input('keyword');
         $posts = $user->posts()->latest()->get();
         $follow_user_ids = $user->follow_users->pluck('id');
         $user_posts = $user->posts()->orWhereIn('user_id', $follow_user_ids )->latest()->get();
@@ -19,6 +20,8 @@ class PostController extends Controller
           'title' => '投稿一覧',
           'user' => $user,
           'posts' => $user_posts,
+        //   'results' => $results,
+          'query' => $query,
           'recommend_users' => User::recommend($user->id)->get(),
         ]);
     }
@@ -88,6 +91,7 @@ class PostController extends Controller
     public function search(Request $request)
     {
         $user = \Auth::user();
+        $query = $request->input('keyword');
         $keyword = $request->input('keyword');
     
         if ($keyword) {
@@ -109,6 +113,7 @@ class PostController extends Controller
         return view('posts.search', compact('keyword', 'posts'),[
                 'user' => $user,
                 'title' => '投稿一覧',
+                'query' => $query,
                 'recommend_users' => User::recommend($user->id)->get(),
             ]);
     }
