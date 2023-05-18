@@ -11,6 +11,22 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('posts.index');
 });
+
+Route::resource('users', 'UserController')->only([
+  'create', 'store','edit', 'update', 'show',
+]);
+
+Route::resource('posts', 'PostController');
+
+Route::resource('follows', 'FollowController')->only([
+  'index', 'store', 'destroy'
+]);
+ 
+Route::get('/follower', 'FollowController@followerIndex');
+
+Route::get('/search', 'PostController@search')->name('posts.search');
