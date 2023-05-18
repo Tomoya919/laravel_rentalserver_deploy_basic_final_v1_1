@@ -5,4 +5,4 @@
 3. ```cd ~/laravel_projects/micro_blog```で、micro_blogディレクトリに移動してください。
 4. ```git pull origin master```でmasterブランチを最新状態にしてください。
 
-以上です。これで、urlにドメインを入力して、トップページが表示されたらOKです。
+以上です。これで、urlにドメインを入力して、トップページが表示されたらOKです。（念の為動作確認を行ってください）
